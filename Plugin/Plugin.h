@@ -2,7 +2,7 @@
 
 The MIT License
 
-Copyright (c) 2008 Click to Flash Developers
+Copyright (c) 2008-2009 Click to Flash Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,17 @@ THE SOFTWARE.
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "../MATrackingArea/MATrackingArea.h"
+
+@class CTFWhitelistWindowController;
 
 @interface CTFClickToFlashPlugin : NSView <WebPlugInViewFactory> {
     DOMElement *_container;
     NSString *_host;
+    CTFWhitelistWindowController *_whitelistWindowController;
+    MATrackingArea *trackingArea;
+    BOOL mouseIsDown;
+    BOOL mouseInside;
 }
 
 + (NSView *)plugInViewWithArguments:(NSDictionary *)arguments;
@@ -41,5 +48,10 @@ THE SOFTWARE.
 - (void) setContainer:(DOMElement *)newContainer;
 - (NSString *) host;
 - (void) setHost:(NSString *)newHost;
+
+- (IBAction)addToWhitelist:(id)sender;
+- (IBAction)removeFromWhitelist:(id)sender;
+- (IBAction)editWhitelist:(id)sender;
+- (IBAction)loadFlash:(id)sender;
 
 @end
