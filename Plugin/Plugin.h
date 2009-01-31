@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 @interface CTFClickToFlashPlugin : NSView <WebPlugInViewFactory> {
     DOMElement *_container;
-    NSString *_host;
+	NSURL *_baseURL;
     CTFWhitelistWindowController *_whitelistWindowController;
     MATrackingArea *trackingArea;
     BOOL mouseIsDown;
@@ -46,12 +46,13 @@ THE SOFTWARE.
 
 - (DOMElement *) container;
 - (void) setContainer:(DOMElement *)newContainer;
-- (NSString *) host;
-- (void) setHost:(NSString *)newHost;
+- (NSURL *) baseURL;
+- (void) setBaseURL:(NSURL *)newBaseURL;
 
 - (IBAction)addToWhitelist:(id)sender;
 - (IBAction)removeFromWhitelist:(id)sender;
 - (IBAction)editWhitelist:(id)sender;
+- (IBAction)copyFlashMovieURLToGeneralPasteboard:(id)sender;
 - (IBAction)loadFlash:(id)sender;
 
 @end

@@ -36,7 +36,7 @@
 		A3D6FD8F0F350743003FB1AA /* ContextualMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */; };
 		A3D6FD900F350743003FB1AA /* WhitelistPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */; };
 		A3D6FD960F350766003FB1AA /* Installer.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD950F350766003FB1AA /* Installer.nib */; };
-		D0FB700F0F2FE35000DCB854 /* ContainerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FB700E0F2FE35000DCB854 /* ContainerImage.png */; };
+		A3D6FE2E0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +82,8 @@
 		A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ContextualMenu.nib; path = /Users/khiscott/Developer/clicktoflash/ContextualMenu.nib; sourceTree = "<absolute>"; };
 		A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = WhitelistPanel.nib; path = /Users/khiscott/Developer/clicktoflash/WhitelistPanel.nib; sourceTree = "<absolute>"; };
 		A3D6FD950F350766003FB1AA /* Installer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Installer.nib; path = /Users/khiscott/Developer/clicktoflash/Installer.nib; sourceTree = "<absolute>"; };
-		D0FB700E0F2FE35000DCB854 /* ContainerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ContainerImage.png; path = Images/ContainerImage.png; sourceTree = "<group>"; };
+		A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath-RoundedRectangle.h"; path = "/Users/khiscott/Developer/clicktoflash/NSBezierPath-RoundedRectangle.h"; sourceTree = "<absolute>"; };
+		A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath-RoundedRectangle.m"; path = "/Users/khiscott/Developer/clicktoflash/NSBezierPath-RoundedRectangle.m"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +134,6 @@
 				55EB70540E04A89C0016593D /* Plugin */,
 				00A65F8B0F340CB2004218E6 /* MATrackingArea */,
 				558405520E0F2C2200EA991B /* Installer */,
-				A35B598A0F32AD8C003D20E8 /* Resources */,
 				55EB70550E04A8A40016593D /* Frameworks */,
 				55EB70430E04A8640016593D /* Products */,
 			);
@@ -152,12 +152,13 @@
 			isa = PBXGroup;
 			children = (
 				A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */,
-				D0FB700E0F2FE35000DCB854 /* ContainerImage.png */,
 				79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */,
 				79A21C4A0F30B735009424B8 /* CTFWhitelistWindowController.h */,
 				55EB70610E04A8D00016593D /* Info-Plugin.plist */,
 				55EB703C0E04A84F0016593D /* Plugin.h */,
 				55EB703D0E04A84F0016593D /* Plugin.m */,
+				A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */,
+				A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */,
 				A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */,
 			);
 			name = Plugin;
@@ -170,13 +171,6 @@
 				55EB70570E04A8B80016593D /* WebKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A35B598A0F32AD8C003D20E8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +246,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0FB700F0F2FE35000DCB854 /* ContainerImage.png in Resources */,
 				A3D6FD8F0F350743003FB1AA /* ContextualMenu.nib in Resources */,
 				A3D6FD900F350743003FB1AA /* WhitelistPanel.nib in Resources */,
 			);
@@ -293,6 +286,7 @@
 				79A21C4D0F30B735009424B8 /* CTFWhitelistWindowController.m in Sources */,
 				55EB70480E04A8850016593D /* Plugin.m in Sources */,
 				00A65FA40F340CB2004218E6 /* MATrackingArea.m in Sources */,
+				A3D6FE2E0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
