@@ -79,11 +79,11 @@
 		55EB70610E04A8D00016593D /* Info-Plugin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Info-Plugin.plist"; path = "Plugin/Info-Plugin.plist"; sourceTree = "<group>"; };
 		79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFWhitelistWindowController.m; path = Plugin/CTFWhitelistWindowController.m; sourceTree = "<group>"; };
 		79A21C4A0F30B735009424B8 /* CTFWhitelistWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFWhitelistWindowController.h; path = Plugin/CTFWhitelistWindowController.h; sourceTree = "<group>"; };
-		A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ContextualMenu.nib; path = /Users/khiscott/Developer/clicktoflash/ContextualMenu.nib; sourceTree = "<absolute>"; };
-		A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = WhitelistPanel.nib; path = /Users/khiscott/Developer/clicktoflash/WhitelistPanel.nib; sourceTree = "<absolute>"; };
-		A3D6FD950F350766003FB1AA /* Installer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Installer.nib; path = /Users/khiscott/Developer/clicktoflash/Installer.nib; sourceTree = "<absolute>"; };
-		A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath-RoundedRectangle.h"; path = "/Users/khiscott/Developer/clicktoflash/NSBezierPath-RoundedRectangle.h"; sourceTree = "<absolute>"; };
-		A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath-RoundedRectangle.m"; path = "/Users/khiscott/Developer/clicktoflash/NSBezierPath-RoundedRectangle.m"; sourceTree = "<absolute>"; };
+		A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ContextualMenu.nib; sourceTree = SOURCE_ROOT; };
+		A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = WhitelistPanel.nib; sourceTree = SOURCE_ROOT; };
+		A3D6FD950F350766003FB1AA /* Installer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Installer.nib; sourceTree = SOURCE_ROOT; };
+		A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath-RoundedRectangle.h"; sourceTree = SOURCE_ROOT; };
+		A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath-RoundedRectangle.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
