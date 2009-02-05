@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		2B9260570F36854B000F1583 /* Install plugin for user */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2B9260650F368565000F1583 /* Build configuration list for PBXAggregateTarget "Install plugin for user" */;
+			buildPhases = (
+				2B9260560F36854B000F1583 /* ShellScript */,
+			);
+			dependencies = (
+				2B92605B0F368559000F1583 /* PBXTargetDependency */,
+			);
+			name = "Install plugin for user";
+			productName = "Install plugin for user";
+		};
 		5584067D0E0F371E00EA991B /* Create Zip */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 558406870E0F372D00EA991B /* Build configuration list for PBXAggregateTarget "Create Zip" */;
@@ -25,21 +37,27 @@
 /* Begin PBXBuildFile section */
 		00A65FA40F340CB2004218E6 /* MATrackingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A65F950F340CB2004218E6 /* MATrackingArea.m */; };
 		072189AD0F30D853008C8944 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 072189AB0F30D853008C8944 /* Localizable.strings */; };
-		558405550E0F2C2B00EA991B /* CTFInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 558405540E0F2C2B00EA991B /* CTFInstaller.m */; };
+		072189B30F30D982008C8944 /* Installer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072189B10F30D982008C8944 /* Installer.xib */; };
+		072189BE0F30D9C3008C8944 /* ContextualMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072189BA0F30D9C3008C8944 /* ContextualMenu.xib */; };
+		072189BF0F30D9C3008C8944 /* WhitelistPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */; };
 		558405690E0F2DFA00EA991B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70560E04A8B80016593D /* Cocoa.framework */; };
 		5584056B0E0F2DFE00EA991B /* CTFInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 558405540E0F2C2B00EA991B /* CTFInstaller.m */; };
 		5584064B0E0F35A000EA991B /* ClickToFlash.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 55EB70420E04A8640016593D /* ClickToFlash.plugin */; };
 		55EB70480E04A8850016593D /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EB703D0E04A84F0016593D /* Plugin.m */; };
 		55EB70580E04A8B80016593D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70560E04A8B80016593D /* Cocoa.framework */; };
 		55EB70590E04A8B80016593D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70570E04A8B80016593D /* WebKit.framework */; };
+		69A26D0C0F302C10006648BC /* NSBezierPath-RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */; };
 		79A21C4D0F30B735009424B8 /* CTFWhitelistWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */; };
-		A3D6FD8F0F350743003FB1AA /* ContextualMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */; };
-		A3D6FD900F350743003FB1AA /* WhitelistPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */; };
-		A3D6FD960F350766003FB1AA /* Installer.nib in Resources */ = {isa = PBXBuildFile; fileRef = A3D6FD950F350766003FB1AA /* Installer.nib */; };
-		A3D6FE2E0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2B92605A0F368559000F1583 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55EB70320E04A8410016593D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55EB70410E04A8640016593D;
+			remoteInfo = ClickToFlash;
+		};
 		5584064C0E0F35AC00EA991B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55EB70320E04A8410016593D /* Project object */;
@@ -67,23 +85,23 @@
 		00A65F940F340CB2004218E6 /* MATrackingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MATrackingArea.h; sourceTree = "<group>"; };
 		00A65F950F340CB2004218E6 /* MATrackingArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MATrackingArea.m; sourceTree = "<group>"; };
 		072189AC0F30D853008C8944 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Installer/English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		072189B20F30D982008C8944 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Installer/English.lproj/Installer.xib; sourceTree = "<group>"; };
+		072189BB0F30D9C3008C8944 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/ContextualMenu.xib; sourceTree = "<group>"; };
+		072189BD0F30D9C3008C8944 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/WhitelistPanel.xib; sourceTree = "<group>"; };
 		558405530E0F2C2B00EA991B /* CTFInstaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFInstaller.h; path = Installer/CTFInstaller.h; sourceTree = "<group>"; };
 		558405540E0F2C2B00EA991B /* CTFInstaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFInstaller.m; path = Installer/CTFInstaller.m; sourceTree = "<group>"; };
 		558405590E0F2D6700EA991B /* Info-Installer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "Info-Installer.plist"; path = "Installer/Info-Installer.plist"; sourceTree = "<group>"; };
-		558405610E0F2DE900EA991B /* Install ClickToFlash.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Install ClickToFlash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		558405610E0F2DE900EA991B /* Install ClickToFlash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Install ClickToFlash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55EB703C0E04A84F0016593D /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = Plugin/Plugin.h; sourceTree = "<group>"; };
 		55EB703D0E04A84F0016593D /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Plugin.m; path = Plugin/Plugin.m; sourceTree = "<group>"; };
 		55EB70420E04A8640016593D /* ClickToFlash.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickToFlash.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55EB70560E04A8B80016593D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		55EB70570E04A8B80016593D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
-		55EB70610E04A8D00016593D /* Info-Plugin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Info-Plugin.plist"; path = "Plugin/Info-Plugin.plist"; sourceTree = "<group>"; };
+		55EB70610E04A8D00016593D /* Info-Plugin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-Plugin.plist"; path = "Plugin/Info-Plugin.plist"; sourceTree = "<group>"; };
+		69A26D0A0F302C10006648BC /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath-RoundedRectangle.h"; path = "Plugin/NSBezierPath-RoundedRectangle.h"; sourceTree = "<group>"; };
+		69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath-RoundedRectangle.m"; path = "Plugin/NSBezierPath-RoundedRectangle.m"; sourceTree = "<group>"; };
 		79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFWhitelistWindowController.m; path = Plugin/CTFWhitelistWindowController.m; sourceTree = "<group>"; };
 		79A21C4A0F30B735009424B8 /* CTFWhitelistWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFWhitelistWindowController.h; path = Plugin/CTFWhitelistWindowController.h; sourceTree = "<group>"; };
-		A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ContextualMenu.nib; sourceTree = SOURCE_ROOT; };
-		A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = WhitelistPanel.nib; sourceTree = SOURCE_ROOT; };
-		A3D6FD950F350766003FB1AA /* Installer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Installer.nib; sourceTree = SOURCE_ROOT; };
-		A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath-RoundedRectangle.h"; sourceTree = SOURCE_ROOT; };
-		A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath-RoundedRectangle.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +139,8 @@
 			children = (
 				558405530E0F2C2B00EA991B /* CTFInstaller.h */,
 				558405540E0F2C2B00EA991B /* CTFInstaller.m */,
-				A3D6FD950F350766003FB1AA /* Installer.nib */,
 				558405590E0F2D6700EA991B /* Info-Installer.plist */,
+				072189B10F30D982008C8944 /* Installer.xib */,
 				072189AB0F30D853008C8944 /* Localizable.strings */,
 			);
 			name = Installer;
@@ -151,15 +169,15 @@
 		55EB70540E04A89C0016593D /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				A3D6FD8D0F350743003FB1AA /* ContextualMenu.nib */,
+				072189BA0F30D9C3008C8944 /* ContextualMenu.xib */,
 				79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */,
 				79A21C4A0F30B735009424B8 /* CTFWhitelistWindowController.h */,
 				55EB70610E04A8D00016593D /* Info-Plugin.plist */,
 				55EB703C0E04A84F0016593D /* Plugin.h */,
 				55EB703D0E04A84F0016593D /* Plugin.m */,
-				A3D6FE2C0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.h */,
-				A3D6FE2D0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m */,
-				A3D6FD8E0F350743003FB1AA /* WhitelistPanel.nib */,
+				69A26D0A0F302C10006648BC /* NSBezierPath-RoundedRectangle.h */,
+				69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */,
+				072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */,
 			);
 			name = Plugin;
 			sourceTree = "<group>";
@@ -227,6 +245,7 @@
 				55EB70410E04A8640016593D /* ClickToFlash */,
 				558405600E0F2DE900EA991B /* Install ClickToFlash */,
 				5584067D0E0F371E00EA991B /* Create Zip */,
+				2B9260570F36854B000F1583 /* Install plugin for user */,
 			);
 		};
 /* End PBXProject section */
@@ -237,8 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5584064B0E0F35A000EA991B /* ClickToFlash.plugin in Resources */,
+				072189B30F30D982008C8944 /* Installer.xib in Resources */,
 				072189AD0F30D853008C8944 /* Localizable.strings in Resources */,
-				A3D6FD960F350766003FB1AA /* Installer.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,14 +265,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D6FD8F0F350743003FB1AA /* ContextualMenu.nib in Resources */,
-				A3D6FD900F350743003FB1AA /* WhitelistPanel.nib in Resources */,
+				072189BE0F30D9C3008C8944 /* ContextualMenu.xib in Resources */,
+				072189BF0F30D9C3008C8944 /* WhitelistPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2B9260560F36854B000F1583 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -Rf \"$HOME/Library/Internet Plug-Ins/ClickToFlash.plugin\"\ncp -R \"$BUILT_PRODUCTS_DIR/ClickToFlash.plugin\" \"$HOME/Library/Internet Plug-Ins/ClickToFlash.plugin\"\nexit 0";
+		};
 		5584067C0E0F371E00EA991B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -282,17 +314,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				558405550E0F2C2B00EA991B /* CTFInstaller.m in Sources */,
+				69A26D0C0F302C10006648BC /* NSBezierPath-RoundedRectangle.m in Sources */,
 				79A21C4D0F30B735009424B8 /* CTFWhitelistWindowController.m in Sources */,
 				55EB70480E04A8850016593D /* Plugin.m in Sources */,
 				00A65FA40F340CB2004218E6 /* MATrackingArea.m in Sources */,
-				A3D6FE2E0F3517B1003FB1AA /* NSBezierPath-RoundedRectangle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2B92605B0F368559000F1583 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55EB70410E04A8640016593D /* ClickToFlash */;
+			targetProxy = 2B92605A0F368559000F1583 /* PBXContainerItemProxy */;
+		};
 		5584064D0E0F35AC00EA991B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55EB70410E04A8640016593D /* ClickToFlash */;
@@ -319,14 +355,58 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		072189B10F30D982008C8944 /* Installer.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				072189B20F30D982008C8944 /* English */,
+			);
+			name = Installer.xib;
+			sourceTree = "<group>";
+		};
+		072189BA0F30D9C3008C8944 /* ContextualMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				072189BB0F30D9C3008C8944 /* English */,
+			);
+			name = ContextualMenu.xib;
+			sourceTree = "<group>";
+		};
+		072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				072189BD0F30D9C3008C8944 /* English */,
+			);
+			name = WhitelistPanel.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2B9260580F36854B000F1583 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Install plugin for user";
+			};
+			name = Debug;
+		};
+		2B9260590F36854B000F1583 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Install plugin for user";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		558405640E0F2DE900EA991B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "ppc i386 ppc64 x86_64";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -353,9 +433,7 @@
 		558405650E0F2DE900EA991B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "ppc i386 ppc64 x86_64";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -402,25 +480,29 @@
 		55EB70330E04A8410016593D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = NO;
-				PRODUCT_VERSION = 1.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_VERSION = 1.3;
 			};
 			name = Debug;
 		};
 		55EB70340E04A8410016593D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
-				PRODUCT_VERSION = 1.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_VERSION = 1.3;
 			};
 			name = Release;
 		};
 		55EB70450E04A8640016593D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "ppc i386 ppc64 x86_64";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -446,7 +528,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "ppc i386 ppc64 x86_64";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -470,6 +551,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2B9260650F368565000F1583 /* Build configuration list for PBXAggregateTarget "Install plugin for user" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B9260580F36854B000F1583 /* Debug */,
+				2B9260590F36854B000F1583 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		558405660E0F2DE900EA991B /* Build configuration list for PBXNativeTarget "Install ClickToFlash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -23,10 +23,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+
+
 #import "Plugin.h"
+#import "NSBezierPath-RoundedRectangle.h"
 #import "CTFWhitelistWindowController.h"
 #import "MATrackingArea.h"
-#import "NSBezierPath-RoundedRectangle.h"
 
 @interface NSBezierPath(MRGradientFill)
 -(void)linearGradientFill:(NSRect)thisRect
@@ -37,6 +39,7 @@ THE SOFTWARE.
 static NSString *sFlashOldMIMEType = @"application/x-shockwave-flash";
 static NSString *sFlashNewMIMEType = @"application/futuresplash";
 static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
+static NSString *sCTFWhitelistAdditionMade = @"CTFWhitelistAdditionMade";
 
 @interface CTFClickToFlashPlugin (Internal)
 - (void) _convertTypesForContainer;
@@ -47,6 +50,7 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 - (void) _addHostToWhitelist;
 - (void) _removeHostFromWhitelist;
 - (void) _askToAddCurrentSiteToWhitelist;
+- (void) _whitelistAdditionMade: (NSNotification*) note;
 @end
 
 
@@ -73,8 +77,9 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 
         NSURL *base = [arguments objectForKey:WebPlugInBaseURLKey];
         if (base) {
-			[self setBaseURL:base];
+            [self setHost:[base host]];
             if ([self _isHostWhitelisted] && ![self _isOptionPressed]) {
+                _isLoadingFromWhitelist = YES;
                 [self performSelector:@selector(_convertTypesForContainer) withObject:nil afterDelay:0];
             }
         }
@@ -93,6 +98,13 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
                     [self setToolTip:src];
             }
         }
+		
+		// Observe for additions to the whitelist (can't use KVO due to the dot in the pref key):
+		
+		[[NSNotificationCenter defaultCenter] addObserver: self 
+												 selector: @selector( _whitelistAdditionMade: ) 
+													 name: sCTFWhitelistAdditionMade 
+												   object: nil ];
     }
 
     return self;
@@ -102,15 +114,17 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 - (void) dealloc
 {
     [self setContainer:nil];
-    [self setBaseURL:nil];
+    [self setHost:nil];
     [_whitelistWindowController release];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     [super dealloc];
 }
 
 
 - (void) drawRect:(NSRect)rect
 {
-    [self _drawBackground];
+	if(!_isLoadingFromWhitelist)
+		[self _drawBackground];
 }
 
 
@@ -159,11 +173,6 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
     }
 }
 
-- (NSMenu *)menuForEvent:(NSEvent *)theEvent
-{
-    return [self menu];
-}
-
 - (BOOL) _isOptionPressed;
 {
     BOOL isOptionPressed = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) != 0);
@@ -173,7 +182,7 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 - (void) _askToAddCurrentSiteToWhitelist
 {
     NSString *title = NSLocalizedString(@"Always load flash for this site?", @"Always load flash for this site?");
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Add %@ to the white list?", @"Add %@ to the white list?"), [[self baseURL] host]];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Add %@ to the white list?", @"Add %@ to the white list?"), [self host]];
 
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:NSLocalizedString(@"Add to white list", @"Add to white list")];
@@ -192,14 +201,13 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
     if (returnCode == NSAlertFirstButtonReturn)
     {
         [self _addHostToWhitelist];
-        [self _convertTypesForContainer];
     }
 }
 
 - (BOOL) _isHostWhitelisted
 {
     NSArray *hostWhitelist = [[NSUserDefaults standardUserDefaults] stringArrayForKey:sHostWhitelistDefaultsKey];
-    return hostWhitelist && [hostWhitelist containsObject:[[self baseURL] host]];
+    return hostWhitelist && [hostWhitelist containsObject:[self host]];
 }
 
 - (NSMutableArray *)_hostWhitelist
@@ -214,19 +222,31 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 - (void) _addHostToWhitelist
 {
     NSMutableArray *hostWhitelist = [self _hostWhitelist];
-    [hostWhitelist addObject:[[self baseURL] host]];
+    [hostWhitelist addObject:[self host]];
     [[NSUserDefaults standardUserDefaults] setObject:hostWhitelist forKey:sHostWhitelistDefaultsKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName: sCTFWhitelistAdditionMade object: self];
 }
 
 - (void) _removeHostFromWhitelist
 {
     NSMutableArray *hostWhitelist = [self _hostWhitelist];
-    [hostWhitelist removeObject:[[self baseURL] host]];
+    [hostWhitelist removeObject:[self host]];
     [[NSUserDefaults standardUserDefaults] setObject:hostWhitelist forKey:sHostWhitelistDefaultsKey];
+}
+
+- (void) _whitelistAdditionMade: (NSNotification*) note
+{
+	if ([self _isHostWhitelisted])
+		[self _convertTypesForContainer];
 }
 
 #pragma mark -
 #pragma mark Contextual menu
+
+- (NSString*) addToWhiteListMenuTitle
+{
+    return [NSString stringWithFormat:NSLocalizedString(@"Add %@ to whitelist", @"Add %@ to whitelist"), [self host]];
+}
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
@@ -250,15 +270,8 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 {
     if ([self _isHostWhitelisted])
         return;
-
-    if ([self _isOptionPressed])
-    {
-        [self _addHostToWhitelist];
-        [self _convertTypesForContainer];
-        return;
-    }
-
-    [self _askToAddCurrentSiteToWhitelist];
+    
+    [self _addHostToWhitelist];
 }
 
 - (IBAction)removeFromWhitelist:(id)sender;
@@ -267,7 +280,7 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
         return;
 
     NSString *title = NSLocalizedString(@"Remove from white list?", @"Remove from white list?");
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Remove %@ from the white list?", @"Remove %@ from the white list?"), [[self baseURL] host]];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Remove %@ from the white list?", @"Remove %@ from the white list?"), [self host]];
 
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:NSLocalizedString(@"Remove from white list", @"Remove from white list")];
@@ -298,27 +311,6 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
     [_whitelistWindowController showWindow:self];
 }
 
-- (IBAction)copyFlashMovieURLToGeneralPasteboard:(id)sender
-{
-    NSString *movieURLString = nil;
-    NSURL *movieURL = nil;
-	
-    DOMElement *element = [self container];
-    if ([[element tagName] isEqualToString:@"EMBED"])
-        movieURLString = [element getAttribute:@"src"];
-    else if ([[element tagName] isEqualToString:@"OBJECT"])
-        movieURLString = [element getAttribute:@"data"];
-	
-    if (movieURLString)
-        movieURL = [NSURL URLWithString:movieURLString relativeToURL:[self baseURL]];
-	
-    if (movieURL) {
-        NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-        [pboard declareTypes:[NSArray arrayWithObject:NSURLPboardType] owner:self];
-        [movieURL writeToPasteboard:pboard];
-    }
-}
-
 - (IBAction)loadFlash:(id)sender;
 {
     [self _convertTypesForContainer];
@@ -326,24 +318,30 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 
 #pragma mark -
 #pragma mark Drawing
-- (void) _drawBadge
+
+- (NSString*) badgeLabelText
+{
+	return NSLocalizedString( @"Flash", @"Flash" );
+}
+
+- (void) _drawBadgeWithPressed: (BOOL) pressed
 {
 	// What and how are we going to draw?
 	
 	const float kFrameXInset = 10;
 	const float kFrameYInset =  4;
-	const float kMinMargin   = 11.5;
+	const float kMinMargin   = 11;
 	const float kMinHeight   =  6;
 	
-	NSString* str = NSLocalizedString( @"Flash", @"Flash" );
+	NSString* str = [ self badgeLabelText ];
 	
-	NSColor* badgeColor = [ NSColor colorWithCalibratedWhite: 0.0 alpha: 0.25 ];
+	NSColor* badgeColor = [ NSColor colorWithCalibratedWhite: 0.0 alpha: pressed ? 0.40 : 0.25 ];
 	
 	NSDictionary* attrs = [ NSDictionary dictionaryWithObjectsAndKeys: 
-		[ NSFont boldSystemFontOfSize: 20 ], NSFontAttributeName,
-		[ NSNumber numberWithInt: -1 ], NSKernAttributeName,
-		badgeColor, NSForegroundColorAttributeName,
-		nil ];
+						   [ NSFont boldSystemFontOfSize: 20 ], NSFontAttributeName,
+						   [ NSNumber numberWithInt: -1 ], NSKernAttributeName,
+						   badgeColor, NSForegroundColorAttributeName,
+						   nil ];
 	
 	// Set up for drawing.
 	
@@ -353,22 +351,42 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 	
 	NSSize strSize = [ str sizeWithAttributes: attrs ];
 	
-	float w = strSize.width + kFrameXInset * 2;
+	float w = strSize.width  + kFrameXInset * 2;
 	float h = strSize.height + kFrameYInset * 2;
 	
 	// Compute a scale factor based on the view's size.
 	
 	float maxW = NSWidth( bounds ) - kMinMargin;
 	float maxH = NSHeight( bounds ) - kMinMargin;
+	float minW = kMinHeight * w / h;
 	
-	if( maxW <= kMinHeight * w / h || maxH <= kMinHeight )
-		return;    // nothing to draw
+	BOOL rotate = NO;
+	if( maxW <= minW )	// too narrow in width, so rotate it
+		rotate = YES;
 	
+	if( rotate ) {		// swap the dimensions to scale into
+		float temp = maxW;
+		maxW = maxH;
+		maxH = temp;
+	}
+	
+	if( maxH <= kMinHeight ) {
+		// Too short in height for full margin.
+		
+		// Draw at the smallest size, with less margin,
+		// unless even that would get clipped off.
+		
+		if( maxH + kMinMargin < kMinHeight )
+			return;
+
+		maxH = kMinHeight;
+	}
+
 	float scaleFactor = 1.0;
 	
 	if( maxW < w )
 		scaleFactor = maxW / w;
-	
+
 	if( maxH < h && maxH / h < scaleFactor )
 		scaleFactor = maxH / h;
 	
@@ -379,6 +397,8 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 	NSAffineTransform* xform = [ NSAffineTransform transform ];
 	[ xform translateXBy: NSWidth( bounds ) / 2 yBy: NSHeight( bounds ) / 2 ];
 	[ xform scaleBy: scaleFactor ];
+	if( rotate )
+		[ xform rotateByDegrees: 90 ];
 	[ xform concat ];
 	
 	// Draw everything at full size, centered on the origin.
@@ -387,7 +407,7 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 	NSRect borderRect = NSMakeRect( loc.x - kFrameXInset, loc.y - kFrameYInset, w, h );
 	
 	[ str drawAtPoint: loc withAttributes: attrs ];
-	
+
 	NSBezierPath* path = bezierPathWithRoundedRectCornerRadius( borderRect, 4 );
 	[ badgeColor set ];
 	[ path setLineWidth: 3 ];
@@ -395,7 +415,7 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
 	
 	// Now restore the graphics state:
 	
-	[NSGraphicsContext restoreGraphicsState ];
+	[ NSGraphicsContext restoreGraphicsState ];
 }
 
 - (void) _drawBackground
@@ -419,50 +439,26 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
     }
     else
     {
-		//tweak colors for better compatibility with linearGradientFill
-		startingColor = [NSColor colorWithDeviceWhite:0.667 alpha:0.15];
-		endingColor = [NSColor colorWithDeviceWhite:0.333 alpha:0.15];
-		NSBezierPath *path = [NSBezierPath bezierPath];
+        //tweak colors for better compatibility with linearGradientFill
+        startingColor = [NSColor colorWithDeviceWhite:0.633 alpha:0.15];
+        endingColor = [NSColor colorWithDeviceWhite:0.333 alpha:0.15];
+        NSBezierPath *path = [NSBezierPath bezierPath];
 
         //Draw Gradient
         [path linearGradientFill:fillRect
                       startColor:((mouseIsDown && mouseInside) ? endingColor : startingColor)
                         endColor:((mouseIsDown && mouseInside) ? startingColor : endingColor)];
-        [[NSColor colorWithCalibratedWhite:0.0 alpha:0.50] set];
         [path stroke];
     }
 
     // Draw stroke
+    [[NSColor colorWithCalibratedWhite:0.0 alpha:0.50] set];
     [NSBezierPath setDefaultLineWidth:2.0];
     [NSBezierPath setDefaultLineCapStyle:NSSquareLineCapStyle];
     [[NSBezierPath bezierPathWithRect:strokeRect] stroke];
 
-    // Draw an image on top to make it insanely obvious that this is clickable Flash.
-    /*NSString *containerImageName = [[NSBundle bundleForClass:[self class]] pathForResource:@"ContainerImage" ofType:@"png"];
-    NSImage *containerImage = [[NSImage alloc] initWithContentsOfFile:containerImageName];
-
-    NSSize viewSize  = fillRect.size;
-    NSSize imageSize = [containerImage size];
-
-    NSPoint viewCenter;
-    viewCenter.x = viewSize.width  * 0.50;
-    viewCenter.y = viewSize.height * 0.50;
-
-    NSPoint imageOrigin = viewCenter;
-    imageOrigin.x -= imageSize.width  * 0.50;
-    imageOrigin.y -= imageSize.height * 0.50;
-
-    NSRect destinationRect;
-    destinationRect.origin = imageOrigin;
-    destinationRect.size = imageSize;
-
-    // Draw the image centered in the view
-    [containerImage drawInRect:destinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-
-    [containerImage release];*/
-	
-	//Draw a vector badge
-	[self _drawBadge];
+    // Draw label
+	[ self _drawBadgeWithPressed: mouseIsDown && mouseInside ];
 }
 
 
@@ -517,16 +513,17 @@ static NSString *sHostWhitelistDefaultsKey = @"ClickToFlash.whitelist";
     _container = [newContainer retain];
 }
 
-- (NSURL *) baseURL
+- (NSString *) host
 {
-	return _baseURL;
+    return _host;
 }
 
-- (void) setBaseURL:(NSURL *)newBaseURL
+- (void) setHost:(NSString *)newHost
 {
-	[_baseURL autorelease];
-    _baseURL = [newBaseURL retain];
+    [_host autorelease];
+    _host = [newHost retain];
 }
+
 @end
 
 

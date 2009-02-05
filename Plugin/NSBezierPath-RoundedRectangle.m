@@ -1,7 +1,7 @@
 //
 //  NSBezierPath-RoundedRectangle.m
-//  Based on http://www.cocoadev.com/index.pl?RoundedRectangles
-//  Switched to a function instead of a category class method for use in a plug-in.
+//	Based on http://www.cocoadev.com/index.pl?RoundedRectangles
+//	Switched to a function instead of a category class method for use in a plug-in.
 //
 
 #import "NSBezierPath-RoundedRectangle.h"
@@ -21,14 +21,14 @@ NSBezierPath* bezierPathWithRoundedRectCornerRadius( NSRect aRect, double cRadiu
 	//arcs making up its corners --points c, e, & g are implicit endpoints of arcs
 	//and are unnecessary
 	NSPoint a = NSMakePoint( 0, cRadius ), b = NSMakePoint( 0, height - cRadius ),
-		d = NSMakePoint( width - cRadius, height ), f = NSMakePoint( width, cRadius ),
-		h = NSMakePoint( cRadius, 0 );
+	d = NSMakePoint( width - cRadius, height ), f = NSMakePoint( width, cRadius ),
+	h = NSMakePoint( cRadius, 0 );
 	
 	//these points describe the center points of the corner arcs
 	NSPoint cA = NSMakePoint( cRadius, height - cRadius ),
-		cB = NSMakePoint( width - cRadius, height - cRadius ),
-		cC = NSMakePoint( width - cRadius, cRadius ),
-		cD = NSMakePoint( cRadius, cRadius );
+	cB = NSMakePoint( width - cRadius, height - cRadius ),
+	cC = NSMakePoint( width - cRadius, cRadius ),
+	cD = NSMakePoint( cRadius, cRadius );
 	
 	//start
 	NSBezierPath *bp = [NSBezierPath bezierPath];
@@ -40,7 +40,7 @@ NSBezierPath* bezierPathWithRoundedRectCornerRadius( NSRect aRect, double cRadiu
 	[bp lineToPoint: f ];
 	[bp appendBezierPathWithArcWithCenter: cC radius: cRadius startAngle:0 endAngle:270 clockwise: YES];
 	[bp lineToPoint: h ];
-	[bp appendBezierPathWithArcWithCenter: cD radius: cRadius startAngle:270 endAngle:180 clockwise: YES];  
+	[bp appendBezierPathWithArcWithCenter: cD radius: cRadius startAngle:270 endAngle:180 clockwise: YES];	
 	[bp closePath];
 	
 	//Transform path to rectangle's origin
@@ -50,3 +50,4 @@ NSBezierPath* bezierPathWithRoundedRectCornerRadius( NSRect aRect, double cRadiu
 	
 	return bp; //it's already been autoreleased
 }
+
